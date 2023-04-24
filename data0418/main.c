@@ -58,7 +58,10 @@ int main()
 	
 	int len = strlen(s);
 	//홀수일때랑 짝수일때
+	StackType stack2;
 
+	StackType stack4;
+	init_stack(&stack2);
 
 	int k = 0;
 	for (int i = 0; i < len; i++)
@@ -78,20 +81,20 @@ int main()
 	} //문자만 입력
 
 	int check = 0;
-	
+
 	for (int i = 0; i < strlen(s); i++)
 	{
 		if (s[i] >= 'a' && s[i] <= 'z')
-		{
-			char tmp = pop(&stack);
+	{
+		char tmp = pop(&stack);
 			if (s[i] == tmp)
-			{
-				check++;
-			}
-			else {
-				check = 0;
-				break;
-			}
+		{
+			check++;
+		}
+		else {
+			check = 0;
+			break;
+		}
 		}
 		
 

@@ -48,64 +48,84 @@ element pop(StackType* s)
 }
 int main()
 {
-	StackType stack;
-	init_stack(&stack);
-
-	char s[100];
-	char s2[100];
-	printf("문자열을 입력하시오 : ");
-	scanf_s("%[^\n]s", s,sizeof(s));
-	
-	int len = strlen(s);
-	//홀수일때랑 짝수일때
-	StackType stack2;
-
-	StackType stack4;
-	init_stack(&stack2);
-
-	int k = 0;
-	for (int i = 0; i < len; i++)
+	char again;
+	int again_i = ' ';
+	do
 	{
-		if (s[i] >= 'a' && s[i] <= 'z')
+
+
+		StackType stack;
+		init_stack(&stack);
+
+		char s[100];
+		printf("문자열을 입력하시오 : ");
+		scanf_s(" %[^\n]s", s, sizeof(s));
+
+		int len = strlen(s);
+		//홀수일때랑 짝수일때
+		StackType stack2;
+		init_stack(&stack2);
+
+		int k = 0;
+		for (int i = 0; i < len; i++)
 		{
-			//s2[k++] = s[i];
-			push(&stack, s[i]);
+			if (s[i] >= 'a' && s[i] <= 'z')
+			{
+				//s2[k++] = s[i];
+				push(&stack, s[i]);
+			}
+			else if (s[i] >= 'A' && s[i] <= 'Z')
+			{
+				s[i] = s[i] + 32;
+				//s2[k++] = s[i];
+				push(&stack, s[i]);
+			}
+
+		} //문자만 입력
+
+		int check = 0;
+
+		for (int i = 0; i < strlen(s); i++)
+		{
+			if (s[i] >= 'a' && s[i] <= 'z')
+			{
+				char tmp = pop(&stack);
+				if (s[i] == tmp)
+				{
+					check++;
+				}
+				else {
+					check = 0;
+					break;
+				}
+			}
+
+
 		}
-		else if (s[i] >= 'A' && s[i] <= 'Z')
+		if (check > 0)
 		{
-			s[i] = s[i] + 32;
-			//s2[k++] = s[i];
-			push(&stack, s[i]);
-		}
-		
-	} //문자만 입력
-
-	int check = 0;
-
-	for (int i = 0; i < strlen(s); i++)
-	{
-		if (s[i] >= 'a' && s[i] <= 'z')
-	{
-		char tmp = pop(&stack);
-			if (s[i] == tmp)
-		{
-			check++;
+			printf("회문입니다.\n");
 		}
 		else {
-			check = 0;
-			break;
+			printf("회문이 아닙니다.\n");
+
 		}
-		}
+		 
+		printf("반복 하시겠습니까? (y/n) :");
+		scanf_s(" %c",&again);
 		
+		if (again == 'y' || again == 'Y')
+		{
+			again_i = 1;
+		}
+		else
+		{
+			again_i = 0;
+			break;
+			return 0;
+		}
 
-	}
-	if (check > 0)
-	{
-		printf("회문입니다.");
-	}
-	else {
-		printf("회문이 아닙니다.");
-	}
+	} while (again_i == 1);
 
-	return 0;
+
 }
